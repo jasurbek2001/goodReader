@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Book Detail Page{% endblock %}
+
+
+{% block content %}
+    <div class="row mt-5 mb-4">
+        <div class="col-2 me-5">
+            <img class="cover-pic" alt="cover image" src="{{ book.cover_picture.url }}">
+        </div>
+
+        <div class="col-6 ms-5">
+            <h3>{{ book.title.capitalize }}</h3><br>
+
+            <span class="fst-italic">
+                Authored by
+                {% for book_author in book.bookauthor_set.all %}
+                    {% if forloop.last %}
+                        {{ book_author.author.full_name }}
+                    {% else %}
+                        {{ book_author.author.full_name }},
+                    {% endif %}
+                {% endfor %}
+            </span>
+
+            <p>{{ book.description }}</p>
+            <h5>ISBN: {{ book.isbn }}</h5>
+        </div>
+
+    </div>
+
+
+    <hr><h4>Comment section</h4>
+    <div class="row mt-4 me-5">
+        <div class="col-6">
+            <form method="post" action="{% url 'books:reviews' book.id %}">{% csrf_token %}
+                {{ review_form | crispy }}
+                <button class="btn btn-success">Add comment</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    {% if book.bookrewiev_set.exists %}
+        <hr><h4>Reviews</h4>
+        <br>
+        {% for review in book.bookrewiev_set.all %}
+            <div class="row mb-3">
+                <div class="col-7">
+                    <p class="ms-5">
+                        {{ review.comment }} | <b>{{ review.stars_given }}</b> stars | <span class="fw-lighter">created {{ review.created_at }}</span>
+                        {% if review.user == request.user%}
+                            <a class="ms-3" href="{% url 'books:edit-review' book.id review.id %}"><i class="bi bi-pen"></i></a>
+                            <a class="ms-2" href="{% url 'books:confirm-delete-review' book.id review.id %}"><i class="bi bi-trash"></i></a>
+                        {% endif %}
+
+                    </p>
+                    <p><img class="me-2" alt="picture" style="width: 30px; height: 30px; border-radius: 50%" src="{{ review.user.profile_picture.url }}"> <b>{{ review.user.first_name.title }} {{ review.user.last_name.title }}</b></p>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    {% endif %}
+
+
+{#    <h1>{{ book.title.capitalize }}</h1><br>#}
+{#    <img class="cover-pic" alt="cover image" src="{{ book.cover_picture.url }}"><br><br>#}
+{#    <p>{{ book.description }}</p>#}
+{#    <h5>ISBN: {{ book.isbn }}</h5>#}
+
+{% endblock %}

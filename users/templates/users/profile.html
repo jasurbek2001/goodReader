@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Profile Page{% endblock %}
+
+{% block content %}
+
+
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+{#                    <button class="btn btn-secondary"> #}
+                        <img class="profile-pic" alt="Profile picture" src="{{ user.profile_picture.url }}">
+{#                    </button>#}
+                    <span class="name mt-3">{{ user.first_name }} {{ user.last_name }}</span>
+                    <span class="idd">@{{ user.username }}</span>
+                    <span class="idd">{{ user.email }}</span>
+
+
+                    <div class=" d-flex mt-2">
+                        <a class="btn btn-dark" href="{% url 'users:profile-edit' %}">edit profile</a>
+                    </div>
+
+                    <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
+                        <span><i class="fa fa-twitter"></i></span>
+                        <span><i class="fa fa-facebook-f"></i></span>
+                        <span><i class="fa fa-instagram"></i></span>
+                        <span><i class="fa fa-linkedin"></i></span>
+                    </div>
+                    <div class=" px-2 rounded mt-4 date ">
+                        <span class="join">Joined {{ user.date_joined }}</span>
+                    </div>
+            </div>
+        </div>
+</div>
+
+
+
+{#|date:"M d,Y"#}
+
+
+{#    <br>#}
+{#    <div >#}
+{#        <img class="profile-pic" alt="Profile picture" src="{{ user.profile_picture.url }}">#}
+{#    </div>#}
+{##}
+{#    <br>#}
+{#    <p>Username: {{ user.username }}</p>#}
+{#    <p>First Name: {{ user.first_name }}</p>#}
+{#    <p>Last Name: {{ user.last_name }}</p>#}
+{#    <p>Email: {{ user.email }}</p>#}
+{#    <a href="{% url 'users:profile-edit' %}">edit profile</a>#}
+{% endblock %}
