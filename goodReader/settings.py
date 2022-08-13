@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-cbb7i*oiw5k%4s&nse961u_t5tc@zwft*_@*!b!w(5ctn@zc&$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['goodreaderoneone.herokuapp.com']
 
 LOGIN_URL = "users:login"
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whit'
 
     # External apps
     'ckeditor',
